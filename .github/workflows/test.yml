@@ -20,13 +20,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: corretto
-          java-version: 17
-      - name: Set up mock Gradle environment
-        uses: gradle/actions/setup-gradle@v3
       - name: Test generating API docs and deploying to GitHub Pages
         uses: ./
         with:
