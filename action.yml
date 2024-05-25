@@ -39,8 +39,8 @@ runs:
         sparse-checkout: |
           scripts/generate-docs.sh
         sparse-checkout-cone-mode: false
-    - name: Copy generate-docs.sh script
-      run: cp scripts/generate-docs.sh /usr/bin/generate-docs.sh && chmod +x /usr/bin/generate-docs.sh
+    - name: Copy generate-docs.sh script to stable path
+      run: cp scripts/generate-docs.sh /tmp/generate-docs.sh
       shell: bash
     - name: Checkout Smithy models package
       uses: actions/checkout@v4
@@ -57,7 +57,7 @@ runs:
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
       shell: bash
     - name: Generate ReDoc API documentation
-      run: /usr/bin/generate-docs.sh
+      run: /tmp/generate-docs.sh
       shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
