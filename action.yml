@@ -32,7 +32,15 @@ concurrency:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Smithy models package
+      uses: actions/checkout@v4
+    - name: Checkout generate-docs.sh script
+      uses: actions/checkout@v4
+      with:
+        repository: msayson/smithy-gh-pages-action
+        sparse-checkout: |
+          scripts/generate-docs.sh
+        sparse-checkout-cone-mode: false
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
