@@ -34,14 +34,33 @@ Add the following steps to your GitHub workflow, replacing the input values:
     api-docs-directory: 'REPLACE_WITH_NEW_API_HTML_DOCS_DIR'
 ```
 
-Example use by [msayson/consent-management-api-models](https://github.com/msayson/consent-management-api-models):
-
+### Workflow example
 ```yaml
-- name: Generate API docs from Smithy models and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages-action@v1.0.0
-  with:
-    gradle-smithy-task-name: build
-    openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
-    openapi-yaml-directory: build/openapi
-    api-docs-directory: build/docs
+name: Generate API Docs
+
+on:
+  # Automatically trigger when push to main branch
+  push:
+    branches: ["main"]
+  # Enable running workflow manually from GitHub Actions
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  generate-api-docs:
+    name: Generate API Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate API docs and deploy to GitHub Pages
+        uses: msayson/smithy-gh-pages-action@v1.0.0
+        with:
+          gradle-smithy-task-name: build
+          openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
+          openapi-yaml-directory: build/openapi
+          api-docs-directory: build/docs
 ```
