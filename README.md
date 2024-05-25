@@ -25,7 +25,7 @@ Example usage by [msayson/consent-management-api-models](https://github.com/msay
 
 ```yaml
 - name: Generate API docs from Smithy models and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages@v1
+  uses: msayson/smithy-gh-pages@v0.1
   with:
     gradle-smithy-task-name: build
     openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
