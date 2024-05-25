@@ -32,8 +32,6 @@ concurrency:
 runs:
   using: composite
   steps:
-    - name: Checkout Smithy models package
-      uses: actions/checkout@v4
     - name: Checkout generate-docs.sh script
       uses: actions/checkout@v4
       with:
@@ -41,6 +39,11 @@ runs:
         sparse-checkout: |
           scripts/generate-docs.sh
         sparse-checkout-cone-mode: false
+    - name: Copy generate-docs.sh script
+      run: cp scripts/generate-docs.sh /usr/bin/generate-docs.sh && chmod +x /usr/bin/generate-docs.sh
+      shell: bash
+    - name: Checkout Smithy models package
+      uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
@@ -53,16 +56,13 @@ runs:
     - name: Generate OpenAPI JSON specs from Smithy models
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
       shell: bash
-    - name: Grant permission to run generate-docs.sh script
-      run: chmod +x ./scripts/generate-docs.sh
+    - name: Generate ReDoc API documentation
+      run: /usr/bin/generate-docs.sh
       shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
         OPENAPI_YAML_DIRECTORY: ${{ inputs.openapi-yaml-directory }}
         API_HTML_DOCS_DIRECTORY: ${{ inputs.api-docs-directory }}
-    - name: Generate ReDoc API documentation
-      run: ./scripts/generate-docs.sh
-      shell: bash
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
