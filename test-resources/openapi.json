@@ -1,0 +1,329 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+      "title": "Consent Management API",
+      "version": "2024-05-24"
+  },
+  "paths": {
+      "/v1/consent-management/services/{serviceId}/users/{userId}/consents": {
+          "get": {
+              "description": "List consents a user has granted to a given service.",
+              "operationId": "ListServiceUserConsent",
+              "parameters": [
+                  {
+                      "name": "serviceId",
+                      "in": "path",
+                      "description": "Unique identifier for a service.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a service."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "Unique identifier for a user.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a user."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "limit",
+                      "in": "query",
+                      "description": "Optional. Maximum number of Consents to return in a single response.",
+                      "schema": {
+                          "type": "number",
+                          "description": "Optional. Maximum number of Consents to return in a single response."
+                      }
+                  },
+                  {
+                      "name": "pageToken",
+                      "in": "query",
+                      "description": "Optional. The nextPageToken returned from the previous list request.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Optional. The nextPageToken returned from the previous list request."
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "ListServiceUserConsent 200 response",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ListServiceUserConsentResponseContent"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "description": "Create a user Consent for a given service.",
+              "operationId": "CreateServiceUserConsent",
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/CreateServiceUserConsentRequestContent"
+                          }
+                      }
+                  },
+                  "required": true
+              },
+              "parameters": [
+                  {
+                      "name": "serviceId",
+                      "in": "path",
+                      "description": "Unique identifier for a service.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a service."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "Unique identifier for a user.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a user."
+                      },
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "CreateServiceUserConsent 200 response"
+                  }
+              }
+          }
+      },
+      "/v1/consent-management/services/{serviceId}/users/{userId}/consents/{consentId}": {
+          "get": {
+              "description": "Retrieve a user Consent for a given service.",
+              "operationId": "GetServiceUserConsent",
+              "parameters": [
+                  {
+                      "name": "consentId",
+                      "in": "path",
+                      "description": "Unique identifier for a Consent.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a Consent."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "serviceId",
+                      "in": "path",
+                      "description": "Unique identifier for a service.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a service."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "Unique identifier for a user.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a user."
+                      },
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "GetServiceUserConsent 200 response",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/GetServiceUserConsentResponseContent"
+                              }
+                          }
+                      }
+                  }
+              }
+          },
+          "post": {
+              "description": "Update a user Consent for a given service.",
+              "operationId": "UpdateServiceUserConsent",
+              "requestBody": {
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/UpdateServiceUserConsentRequestContent"
+                          }
+                      }
+                  }
+              },
+              "parameters": [
+                  {
+                      "name": "consentId",
+                      "in": "path",
+                      "description": "Unique identifier for a Consent.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a Consent."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "serviceId",
+                      "in": "path",
+                      "description": "Unique identifier for a service.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a service."
+                      },
+                      "required": true
+                  },
+                  {
+                      "name": "userId",
+                      "in": "path",
+                      "description": "Unique identifier for a user.",
+                      "schema": {
+                          "type": "string",
+                          "description": "Unique identifier for a user."
+                      },
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "UpdateServiceUserConsent 200 response"
+                  }
+              }
+          }
+      }
+  },
+  "components": {
+      "schemas": {
+          "Consent": {
+              "type": "object",
+              "description": "Record of user consent.",
+              "properties": {
+                  "consentId": {
+                      "type": "string",
+                      "description": "Unique identifier for a Consent."
+                  },
+                  "consentVersion": {
+                      "type": "number"
+                  },
+                  "userId": {
+                      "type": "string",
+                      "description": "Unique identifier for a user."
+                  },
+                  "serviceId": {
+                      "type": "string",
+                      "description": "Unique identifier for a service."
+                  },
+                  "status": {
+                      "$ref": "#/components/schemas/ConsentStatus"
+                  },
+                  "consentData": {
+                      "$ref": "#/components/schemas/ConsentData"
+                  },
+                  "expiryTime": {
+                      "type": "string",
+                      "description": "Time when the Consent automatically expires, using the ISO 8601 format.",
+                      "format": "date-time"
+                  }
+              },
+              "required": [
+                  "consentId",
+                  "consentVersion",
+                  "serviceId",
+                  "status",
+                  "userId"
+              ]
+          },
+          "ConsentData": {
+              "type": "object",
+              "additionalProperties": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "minLength": 1
+              },
+              "maxProperties": 32,
+              "description": "Consent data represented by string key-value pairs. Keys must be between 1-64 characters long, values must be between 1-256 characters long, and up to 32 key-value pairs may be provided."
+          },
+          "ConsentStatus": {
+              "type": "string",
+              "description": "Current status of a Consent.",
+              "enum": [
+                  "ACTIVE",
+                  "EXPIRED",
+                  "REVOKED"
+              ]
+          },
+          "CreateServiceUserConsentRequestContent": {
+              "type": "object",
+              "properties": {
+                  "status": {
+                      "$ref": "#/components/schemas/ConsentStatus"
+                  },
+                  "consentData": {
+                      "$ref": "#/components/schemas/ConsentData"
+                  },
+                  "expiryTime": {
+                      "type": "string",
+                      "description": "Time when the Consent automatically expires, using the ISO 8601 format.",
+                      "format": "date-time"
+                  }
+              },
+              "required": [
+                  "status"
+              ]
+          },
+          "GetServiceUserConsentResponseContent": {
+              "type": "object",
+              "properties": {
+                  "data": {
+                      "$ref": "#/components/schemas/Consent"
+                  }
+              }
+          },
+          "ListServiceUserConsentResponseContent": {
+              "type": "object",
+              "properties": {
+                  "data": {
+                      "type": "array",
+                      "items": {
+                          "$ref": "#/components/schemas/Consent"
+                      },
+                      "description": "Page of Consents"
+                  },
+                  "nextPageToken": {
+                      "type": "string",
+                      "description": "Pagination token to retrieve the next page of results."
+                  }
+              }
+          },
+          "UpdateServiceUserConsentRequestContent": {
+              "type": "object",
+              "properties": {
+                  "status": {
+                      "$ref": "#/components/schemas/ConsentStatus"
+                  },
+                  "consentData": {
+                      "$ref": "#/components/schemas/ConsentData"
+                  },
+                  "expiryTime": {
+                      "type": "string",
+                      "description": "Time when the Consent automatically expires, using the ISO 8601 format.",
+                      "format": "date-time"
+                  }
+              }
+          }
+      }
+  }
+}

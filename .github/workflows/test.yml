@@ -18,15 +18,17 @@ jobs:
     name: Generate API Documentation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout example Smithy model package
-        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
-          repository: msayson/consent-management-api-models
-          ref: v0.2.0
-      - name: Generate API docs and deploy to GitHub Pages
-        uses: msayson/smithy-gh-pages-action@v0.1.5-alpha
+          distribution: corretto
+          java-version: 17
+      - name: Set up mock Gradle environment
+        uses: gradle/actions/setup-gradle@v3
+      - name: Test generating API docs and deploying to GitHub Pages
+        uses: ./
         with:
           gradle-smithy-task-name: build
-          openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
+          openapi-json-filepath: test-resources/openapi.json
           openapi-yaml-directory: build/openapi
           api-docs-directory: build/smithy-gh-pages-actions-test/docs
