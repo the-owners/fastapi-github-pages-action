@@ -23,7 +23,6 @@ jobs:
       - name: Test generating API docs and deploying to GitHub Pages
         uses: ./
         with:
-          gradle-smithy-task-name: build
           openapi-json-filepath: test-resources/openapi.json
           openapi-yaml-directory: build/openapi
           api-docs-directory: build/smithy-gh-pages-actions-test/docs
