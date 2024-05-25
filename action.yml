@@ -41,16 +41,20 @@ runs:
       run: |
         sudo npm install -g @redocly/cli
         sudo snap install yq
+      shell: bash
     - name: Generate OpenAPI JSON specs from Smithy models
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
+      shell: bash
     - name: Grant permission to run generate-docs.sh script
       run: chmod +x ./scripts/generate-docs.sh
+      shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
         OPENAPI_YAML_DIRECTORY: ${{ inputs.openapi-yaml-directory }}
         API_HTML_DOCS_DIRECTORY: ${{ inputs.api-docs-directory }}
     - name: Generate ReDoc API documentation
       run: ./scripts/generate-docs.sh
+      shell: bash
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages
