@@ -1,6 +1,9 @@
 # smithy-gh-pages-action
 GitHub Action to generate API documentation from Smithy models and deploy to GitHub Pages.
 
+### Requirements
+Client projects must be built using Gradle, and provide a Gradle task that generates a OpenAPI JSON specification file from their Smithy models.
+
 ### Usage
 See [action.yml](https://github.com/msayson/smithy-gh-pages-action/action.yml)
 
@@ -18,7 +21,7 @@ Add the following steps to your GitHub workflow, replacing the input values:
 
 ```yaml
 - name: Generate API docs from Smithy models and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages-action@v0.1.5-alpha
+  uses: msayson/smithy-gh-pages-action@v1.0.0
   with:
     # Name of the Gradle task to generate the OpenAPI JSON spec from Smithy models
     # Default: build
@@ -31,11 +34,11 @@ Add the following steps to your GitHub workflow, replacing the input values:
     api-docs-directory: 'REPLACE_WITH_NEW_API_HTML_DOCS_DIR'
 ```
 
-Example usage by [msayson/consent-management-api-models](https://github.com/msayson/consent-management-api-models):
+Example use by [msayson/consent-management-api-models](https://github.com/msayson/consent-management-api-models):
 
 ```yaml
 - name: Generate API docs from Smithy models and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages-action@v0.1.5-alpha
+  uses: msayson/smithy-gh-pages-action@v1.0.0
   with:
     gradle-smithy-task-name: build
     openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
