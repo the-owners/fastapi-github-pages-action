@@ -15,6 +15,10 @@ inputs:
   api-docs-directory:
     description: Directory to create/use for generating API docs HTML
     required: true
+  api-doc-filename:
+    description: Filename to use for generated API docs HTML
+    required: false
+    default: docs.html
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -55,6 +59,7 @@ runs:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
         OPENAPI_YAML_DIRECTORY: ${{ inputs.openapi-yaml-directory }}
         API_HTML_DOCS_DIRECTORY: ${{ inputs.api-docs-directory }}
+        API_HTML_DOC_FILENAME: ${{ inputs.api-doc-filename }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages

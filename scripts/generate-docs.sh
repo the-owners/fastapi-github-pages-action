@@ -45,6 +45,11 @@ then
     echo "The environment variable 'API_HTML_DOCS_DIRECTORY' was not set"
     exit 1
 fi
+if [[ ! -v API_HTML_DOC_FILENAME ]]
+then
+    echo "The environment variable 'API_HTML_DOC_FILENAME' was not set"
+    exit 1
+fi
 
 # Validate OpenAPI JSON spec exists
 if [ ! -f "$OPENAPI_JSON_FILEPATH" ]; then
@@ -62,4 +67,4 @@ yq eval \
 # Generate API documentation from the OpenAPI YAML spec
 mkdir -p $API_HTML_DOCS_DIRECTORY
 npx @redocly/cli build-docs $OPENAPI_YAML_FILEPATH -o \
-    "$API_HTML_DOCS_DIRECTORY/docs.html"
+    "$API_HTML_DOCS_DIRECTORY/$API_HTML_DOC_FILENAME"
