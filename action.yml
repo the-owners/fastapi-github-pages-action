@@ -27,14 +27,6 @@ runs:
   steps:
     - name: Checkout Smithy models package
       uses: actions/checkout@v4
-    - name: Checkout generate-docs.sh script
-      uses: actions/checkout@v4
-      with:
-        repository: msayson/smithy-gh-pages-action
-        sparse-checkout: |
-          scripts/generate-docs.sh
-        sparse-checkout-cone-mode: false
-        path: smithy-gh-pages-scripts
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
@@ -48,8 +40,15 @@ runs:
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
       shell: bash
       if: ${{ inputs.gradle-smithy-task-name }}
+    - name: Fetch generate-docs.sh script
+      uses: actions/checkout@v4
+      with:
+        repository: msayson/smithy-gh-pages-action
+        sparse-checkout: |
+          scripts/generate-docs.sh
+        sparse-checkout-cone-mode: false
     - name: Generate ReDoc API documentation
-      run: ./smithy-gh-pages-scripts/generate-docs.sh
+      run: ./generate-docs.sh
       shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
