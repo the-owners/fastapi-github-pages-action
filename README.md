@@ -32,6 +32,9 @@ Add the following steps to your GitHub workflow, replacing the input values:
     openapi-yaml-directory: 'REPLACE_WITH_NEW_OPENAPI_YAML_DIR'
     # Directory to create/use for generating API docs HTML
     api-docs-directory: 'REPLACE_WITH_NEW_API_HTML_DOCS_DIR'
+    # Filename to use for generated API docs HTML
+    # If not provided, defaults to docs.html
+    api-doc-filename: 'REPLACE_WITH_NEW_API_HTML_DOC_FILENAME'
 ```
 
 ### Workflow example

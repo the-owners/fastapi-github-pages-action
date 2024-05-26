@@ -1,5 +1,8 @@
 name: smithy-gh-pages
 description: Convert smithy models to API documentation and publish to GitHub Pages
+branding:
+  icon: 'upload-cloud'
+  color: 'white'
 
 # GitHub Action inputs
 inputs:
