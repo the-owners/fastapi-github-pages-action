@@ -56,10 +56,14 @@ runs:
         API_DOCS_HTML_FILEPATH: ${{ inputs.api-docs-filepath }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
+    - name: Infer API docs directory
+      id: get-api-docs-dir
+      run: echo "api-docs-dir=$(dirname "${API_DOCS_HTML_FILEPATH}")" >> $GITHUB_OUTPUT
+      shell: bash
     - name: Upload API docs to GitHub Pages
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ${{ inputs.api-docs-directory }}
+        path: ${{ steps.get-api-docs-dir.outputs.api-docs-dir }}
     - name: Deploy GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
