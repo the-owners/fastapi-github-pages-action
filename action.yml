@@ -25,7 +25,7 @@ concurrency:
 runs:
   using: composite
   steps:
-    - name: Checkout repo
+    - name: Checkout Smithy models package
       uses: actions/checkout@v4
     - name: Checkout generate-docs.sh script
       uses: actions/checkout@v4
@@ -34,11 +34,7 @@ runs:
         sparse-checkout: |
           scripts/generate-docs.sh
         sparse-checkout-cone-mode: false
-    - name: Copy generate-docs.sh script to stable path
-      run: cp scripts/generate-docs.sh /tmp/generate-docs.sh
-      shell: bash
-    - name: Checkout Smithy models package
-      uses: actions/checkout@v4
+        path: smithy-gh-pages-scripts
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
@@ -52,15 +48,8 @@ runs:
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
       shell: bash
       if: ${{ inputs.gradle-smithy-task-name }}
-    - name: Checkout provided OpenAPI JSON spec if provided by client
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          ${{ inputs.openapi-json-filepath }}
-        sparse-checkout-cone-mode: false
-      if: "${{ inputs.gradle-smithy-task-name == '' }}"
     - name: Generate ReDoc API documentation
-      run: /tmp/generate-docs.sh
+      run: ./smithy-gh-pages-scripts/generate-docs.sh
       shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
