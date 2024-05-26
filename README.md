@@ -21,7 +21,7 @@ Add the following steps to your GitHub workflow, replacing the input values:
 
 ```yaml
 - name: Generate API docs from Smithy models and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages-action@v1.0.0
+  uses: msayson/smithy-gh-pages-action@v1.0.1
   with:
     # Name of Gradle task to generate OpenAPI JSON spec from Smithy models
     # If not provided, the OpenAPI JSON spec must be provided by your package
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate API docs and deploy to GitHub Pages
-        uses: msayson/smithy-gh-pages-action@v1.0.0
+        uses: msayson/smithy-gh-pages-action@v1.0.1
         with:
           gradle-smithy-task-name: build
           openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
