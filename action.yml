@@ -25,6 +25,8 @@ concurrency:
 runs:
   using: composite
   steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
     - name: Checkout generate-docs.sh script
       uses: actions/checkout@v4
       with:
@@ -73,5 +75,3 @@ runs:
     - name: Deploy GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
-    - name: Fix scope to original package to enable subsequent actions
-      uses: actions/checkout@v4

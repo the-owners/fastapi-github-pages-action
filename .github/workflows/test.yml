@@ -26,5 +26,3 @@ jobs:
           openapi-json-filepath: test-resources/openapi.json
           openapi-yaml-directory: build/openapi
           api-docs-directory: build/smithy-gh-pages-actions-test/docs
-      - name: Return scope to current repository
-        uses: actions/checkout@v4
