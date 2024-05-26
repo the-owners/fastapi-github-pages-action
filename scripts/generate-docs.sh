@@ -14,6 +14,7 @@
 #    1. OPENAPI_JSON_FILEPATH - filepath of existing OpenAPI JSON spec
 #    2. OPENAPI_YAML_DIRECTORY - directory to use to create OpenAPI YAML spec
 #    3. API_HTML_DOCS_DIRECTORY - directory to use to create API HTML documentation
+#    4. API_HTML_DOC_FILENAME - filename to use to create API HTML documentation
 set -e
 
 # Validate prerequisites installed
