@@ -1,9 +1,9 @@
 # smithy-gh-pages-action
 GitHub Action to generate and deploy API documentation to GitHub Pages, using Smithy models or OpenAPI specification files as input.
 
-API docs will by default be generated at *username*.github.io/*provided-api-doc-filepath*.
+API docs will by default be generated at *username*.github.io/*repository-name*/*provided-api-doc-filepath*.
 
-If you've configured your account to use a custom domain for GitHub Pages instead of *username*.github.io, then that will be used instead of *username*.github.io.
+If you've configured your account to use a custom domain for GitHub Pages, then that will be used instead of *username*.github.io.
 
 ### Requirements
 
