@@ -47,8 +47,9 @@ runs:
         sparse-checkout: |
           scripts/generate-docs.sh
         sparse-checkout-cone-mode: false
+        path: smithy-gh-pages-scripts
     - name: Generate ReDoc API documentation
-      run: ./generate-docs.sh
+      run: smithy-gh-pages-scripts/scripts/generate-docs.sh
       shell: bash
       env:
         OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
