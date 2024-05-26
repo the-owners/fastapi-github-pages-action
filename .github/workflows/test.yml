@@ -27,4 +27,4 @@ jobs:
         uses: ./
         with:
           openapi-json-filepath: test-resources/openapi.json
-          api-docs-filepath: ${{ github.ref }}/test-api-docs.html
+          api-docs-filepath: ${{ github.ref_name }}/test-api-docs.html
