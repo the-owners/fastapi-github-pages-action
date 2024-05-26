@@ -56,7 +56,7 @@ runs:
         sparse-checkout: |
           ${{ inputs.openapi-json-filepath }}
         sparse-checkout-cone-mode: false
-      if: "${{ inputs.gradle-smithy-task-name != '' }}"
+      if: "${{ inputs.gradle-smithy-task-name == '' }}"
     - name: Generate ReDoc API documentation
       run: /tmp/generate-docs.sh
       shell: bash
