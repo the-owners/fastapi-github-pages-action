@@ -1,9 +1,12 @@
 name: Generate Consent Management API Docs
 
 on:
-  # Automatically trigger when push to main branch
+  # Automatically trigger when push action/script/resource changes
   push:
-    branches: ["main"]
+    paths:
+      - '**.json'
+      - '**.sh'
+      - '**.yml'
   # Enable running workflow manually from GitHub Actions
   workflow_dispatch:
 

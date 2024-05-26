@@ -1,5 +1,5 @@
 # smithy-gh-pages-action
-GitHub Action to generate API documentation from Smithy models and deploy to GitHub Pages.
+GitHub Action to generate and deploy API documentation to GitHub Pages, using Smithy models or OpenAPI specification files as input.
 
 ### Requirements
 
@@ -29,7 +29,7 @@ permissions:
 Add the following steps to your GitHub workflow, replacing the input values:
 
 ```yaml
-- name: Generate API docs from Smithy models and deploy to GitHub Pages
+- name: Generate API docs and deploy to GitHub Pages
   uses: msayson/smithy-gh-pages-action@v1.1.0
   with:
     # Name of Gradle task to generate OpenAPI JSON spec from Smithy models
@@ -43,7 +43,7 @@ Add the following steps to your GitHub workflow, replacing the input values:
 
 #### Workflow example
 ```yaml
-name: Generate API Docs
+name: Generate API docs and deploy to GitHub Pages
 
 on:
   # Automatically trigger when push to main branch
