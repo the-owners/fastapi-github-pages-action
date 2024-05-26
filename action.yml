@@ -46,10 +46,17 @@ runs:
         sudo npm install -g @redocly/cli
         sudo snap install yq
       shell: bash
-    - name: Generate OpenAPI JSON specs from Smithy models
+    - name: Generate OpenAPI JSON specs from Smithy models if not provided
       run: gradle wrapper ${{ inputs.gradle-smithy-task-name }}
       shell: bash
       if: ${{ inputs.gradle-smithy-task-name }}
+    - name: Checkout provided OpenAPI JSON spec if provided by client
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          ${{ inputs.openapi-json-filepath }}
+        sparse-checkout-cone-mode: false
+      if: "${{ inputs.gradle-smithy-task-name != '' }}"
     - name: Generate ReDoc API documentation
       run: /tmp/generate-docs.sh
       shell: bash
