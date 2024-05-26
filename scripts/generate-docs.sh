@@ -10,11 +10,9 @@
 # 2. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
 #    - eg. `npm install -g @redocly/cli`
 # 3. OpenAPI JSON spec has been pre-generated in the provided directory
-# 4. Caller has set up the following environment variables:
+# 4. Caller has set the following environment variables:
 #    1. OPENAPI_JSON_FILEPATH - filepath of existing OpenAPI JSON spec
-#    2. OPENAPI_YAML_DIRECTORY - directory to use to create OpenAPI YAML spec
-#    3. API_HTML_DOCS_DIRECTORY - directory to use to create API HTML documentation
-#    4. API_HTML_DOC_FILENAME - filename to use to create API HTML documentation
+#    2. API_DOCS_HTML_FILEPATH - filepath to use for generated API docs
 set -e
 
 # Validate prerequisites installed
@@ -36,19 +34,9 @@ then
     echo "The environment variable 'OPENAPI_JSON_FILEPATH' was not set"
     exit 1
 fi
-if [[ ! -v OPENAPI_YAML_DIRECTORY ]]
+if [[ ! -v API_DOCS_HTML_FILEPATH ]]
 then
-    echo "The environment variable 'OPENAPI_YAML_DIRECTORY' was not set"
-    exit 1
-fi
-if [[ ! -v API_HTML_DOCS_DIRECTORY ]]
-then
-    echo "The environment variable 'API_HTML_DOCS_DIRECTORY' was not set"
-    exit 1
-fi
-if [[ ! -v API_HTML_DOC_FILENAME ]]
-then
-    echo "The environment variable 'API_HTML_DOC_FILENAME' was not set"
+    echo "The environment variable 'API_DOCS_HTML_FILEPATH' was not set"
     exit 1
 fi
 
@@ -59,6 +47,7 @@ if [ ! -f "$OPENAPI_JSON_FILEPATH" ]; then
 fi
 
 # Generate OpenAPI YAML spec from the existing JSON
+OPENAPI_YAML_DIRECTORY=build/tmp/openapi-yaml
 OPENAPI_YAML_FILEPATH="$OPENAPI_YAML_DIRECTORY/openapi.yaml"
 mkdir -p $OPENAPI_YAML_DIRECTORY
 yq eval \
@@ -66,6 +55,6 @@ yq eval \
     -o yaml > $OPENAPI_YAML_FILEPATH
 
 # Generate API documentation from the OpenAPI YAML spec
+API_HTML_DOCS_DIRECTORY="$(dirname "${API_DOCS_HTML_FILEPATH}")"
 mkdir -p $API_HTML_DOCS_DIRECTORY
-npx @redocly/cli build-docs $OPENAPI_YAML_FILEPATH -o \
-    "$API_HTML_DOCS_DIRECTORY/$API_HTML_DOC_FILENAME"
+npx @redocly/cli build-docs $OPENAPI_YAML_FILEPATH -o $API_DOCS_HTML_FILEPATH

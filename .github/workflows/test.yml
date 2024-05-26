@@ -24,6 +24,4 @@ jobs:
         uses: ./
         with:
           openapi-json-filepath: test-resources/openapi.json
-          openapi-yaml-directory: build/openapi
-          api-docs-directory: build/smithy-gh-pages-action-test/docs
-          api-doc-filename: smithy-gh-pages-action-test-api-docs.html
+          api-docs-filepath: build/smithy-gh-pages-action-test/docs/smithy-gh-pages-action-test-api-docs.html
