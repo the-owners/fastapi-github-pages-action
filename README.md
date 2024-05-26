@@ -2,7 +2,17 @@
 GitHub Action to generate API documentation from Smithy models and deploy to GitHub Pages.
 
 ### Requirements
-Client projects must be built using Gradle, and provide a Gradle task that generates a OpenAPI JSON specification file from their Smithy models.
+There are two ways to leverage this GitHub Action, which have different requirements.
+
+#### Option 1: Provide a pre-built OpenAPI JSON spec
+Use your repository's filepath to the OpenAPI JSON file as the value for the `openapi-json-filepath` input, and do not provide a value for the `gradle-smithy-task-name` input.
+
+Besides providing other required inputs (see [Usage](#usage)), there are no other requirements for your repository.
+
+#### Option 2: Provide a Gradle task that generates an OpenAPI JSON spec
+In this mode, your repository must be built using Gradle and provide a Gradle task that generates an OpenAPI JSON spec from your API models.
+
+Provide the name of this Gradle task for the `gradle-smithy-task-name` input, as well as providing other required inputs under [Usage](#usage).
 
 ### Usage
 See [action.yml](https://github.com/msayson/smithy-gh-pages-action/action.yml)
