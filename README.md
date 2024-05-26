@@ -1,6 +1,10 @@
 # smithy-gh-pages-action
 GitHub Action to generate and deploy API documentation to GitHub Pages, using Smithy models or OpenAPI specification files as input.
 
+API docs will by default be generated at *username*.github.io/*provided-api-doc-filepath*.
+
+If you've configured your account to use a custom domain for GitHub Pages instead of *username*.github.io, then that will be used instead of *username*.github.io.
+
 ### Requirements
 
 #### Option 1: Provide a pre-built OpenAPI JSON spec
@@ -68,7 +72,7 @@ jobs:
         with:
           gradle-smithy-task-name: build
           openapi-json-filepath: build/smithyprojections/consent-management-api-models/source/openapi/ConsentManagementApi.openapi.json
-          api-docs-filepath: build/docs/docs.html
+          api-docs-filepath: api/docs.html
 ```
 
 ### Technologies
