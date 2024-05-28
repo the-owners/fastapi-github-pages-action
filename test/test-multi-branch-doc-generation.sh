@@ -10,7 +10,7 @@ export API_CONFIGS='[{
 },
 {
   "branch": "v2",
-  "openapi-json-filepath": "test-resources/openapi.json",
+  "openapi-json-filepath": "test/resources/openapi.json",
   "api-doc-filepath": "v2/docs.html"
 }]'
 export API_DOCS_DIR='docs'

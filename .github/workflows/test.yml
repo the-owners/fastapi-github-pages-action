@@ -28,7 +28,6 @@ jobs:
         with:
           api-configs: |-
             [{
-              "branch": "main",
               "openapi-json-filepath": "test/resources/openapi.json",
               "api-doc-filepath": "test/docs.html"
             },
@@ -39,7 +38,7 @@ jobs:
             },
             {
               "branch": "v2",
-              "openapi-json-filepath": "test-resources/openapi.json",
+              "openapi-json-filepath": "test/resources/openapi.json",
               "api-doc-filepath": "v2/docs.html"
             }]
           api-docs-dir: docs
