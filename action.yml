@@ -52,7 +52,7 @@ runs:
         # Parent directory to use for generated API docs
         API_DOCS_DIR: ${{ inputs.api-docs-dir }}
         # Used to git checkout OpenAPI spec files
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ github.token }}
         # Used to return to caller's repository directory
         WORKSPACE_DIR: ${{ github.workspace }}
     - name: Set up GitHub Pages
