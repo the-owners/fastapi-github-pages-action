@@ -47,8 +47,13 @@ runs:
       run: openapi-github-pages-scripts/scripts/generate-docs.sh
       shell: bash
       env:
+        # JSON string containing config for each OpenAPI spec to document
         API_CONFIGS: ${{ inputs.api-configs }}
+        # Parent directory to use for generated API docs
         API_DOCS_DIR: ${{ inputs.api-docs-dir }}
+        # Used to git checkout OpenAPI spec files
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Used to return to caller's repository directory
         WORKSPACE_DIR: ${{ github.workspace }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
