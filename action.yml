@@ -45,6 +45,7 @@ runs:
       env:
         API_CONFIGS: ${{ inputs.api-configs }}
         API_DOCS_DIR: ${{ inputs.api-docs-dir }}
+        WORKSPACE_DIR: ${{ github.workspace }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
     - name: Upload API docs to GitHub Pages

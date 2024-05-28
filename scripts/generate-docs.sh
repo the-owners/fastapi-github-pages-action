@@ -50,8 +50,8 @@ fi
 # Save original directory so can later cd back when relative filepaths matter
 if [[ ! -v WORKSPACE_DIR ]]
 then
-    echo "Setting WORKSPACE_DIR to ${{ github.workspace }}"
-    export WORKSPACE_DIR=${{ github.workspace }}
+    echo "The environment variable 'WORKSPACE_DIR' was not set"
+    exit 1
 fi
 
 # Fetch all Git branch references to enable checking out files from any branch
