@@ -39,6 +39,7 @@ runs:
         repository: msayson/openapi-github-pages-action
         sparse-checkout: |
           scripts/generate-docs.sh
+          scripts/generate-single-spec-doc.sh
         sparse-checkout-cone-mode: false
         path: openapi-github-pages-scripts
     - name: Generate ReDoc API docs

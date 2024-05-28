@@ -121,17 +121,17 @@ jobs:
           api-configs: |-
             [
               {
-                "branch": "origin/main",
+                "branch": "main",
                 "openapi-json-filepath": "openapi/ConsentManagementApi.openapi.json",
                 "api-doc-filepath": "main/docs.html"
               },
               {
-                "branch": "origin/v1",
+                "branch": "v1",
                 "openapi-json-filepath": "openapi/ConsentManagementApi.openapi.json",
                 "api-doc-filepath": "v1/docs.html"
               },
               {
-                "branch": "origin/v2",
+                "branch": "v2",
                 "openapi-json-filepath": "openapi/ConsentManagementApi.openapi.json",
                 "api-doc-filepath": "v2/docs.html"
               }
