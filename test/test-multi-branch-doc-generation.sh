@@ -16,4 +16,5 @@ export API_CONFIGS='[{
 export API_DOCS_DIR='docs'
 
 current_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export WORKSPACE_DIR="$current_dir/.."
 source $current_dir/../scripts/generate-docs.sh

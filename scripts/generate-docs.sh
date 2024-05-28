@@ -48,7 +48,11 @@ then
 fi
 
 # Save original directory so can later cd back when relative filepaths matter
-export ORIGINAL_DIR=$(pwd)
+if [[ ! -v WORKSPACE_DIR ]]
+then
+    echo "Setting WORKSPACE_DIR to ${{ github.workspace }}"
+    export WORKSPACE_DIR=${{ github.workspace }}
+fi
 
 # Fetch all Git branch references to enable checking out files from any branch
 git fetch --all
@@ -63,10 +67,10 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 apiConfigsSplitToOnePerLine=$(echo $API_CONFIGS | jq -c .[])
 for apiConfig in $apiConfigsSplitToOnePerLine
 do
-    cd $ORIGINAL_DIR
+    cd $WORKSPACE_DIR
     echo "Running script to generate API docs for config: $apiConfig"
     source $script_dir/generate-single-spec-doc.sh $apiConfig
 done
 
 # Return to original directory for subsequent actions
-cd $ORIGINAL_DIR
+cd $WORKSPACE_DIR

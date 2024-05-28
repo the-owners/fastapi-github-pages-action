@@ -37,10 +37,7 @@ runs:
       uses: actions/checkout@v4
       with:
         repository: msayson/openapi-github-pages-action
-        sparse-checkout: |
-          scripts/generate-docs.sh
-          scripts/generate-single-spec-doc.sh
-        sparse-checkout-cone-mode: false
+        sparse-checkout: scripts
         path: openapi-github-pages-scripts
     - name: Generate ReDoc API docs
       run: openapi-github-pages-scripts/scripts/generate-docs.sh

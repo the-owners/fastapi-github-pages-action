@@ -28,7 +28,7 @@ if [ "${apiDocFilepath}" = "null" ]; then
     exit 1
 fi
 
-cd $ORIGINAL_DIR
+cd $WORKSPACE_DIR
 
 # Fetch OpenAPI JSON spec if provided branch config
 if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
@@ -45,7 +45,7 @@ if [ ! -f "$openApiJsonFilepath" ]; then
 fi
 
 # Generate OpenAPI YAML spec from the existing JSON
-openApiYamlDir="$ORIGINAL_DIR/build/tmp/openapi-yaml"
+openApiYamlDir="$WORKSPACE_DIR/build/tmp/openapi-yaml"
 openApiYamlFilepath="$openApiYamlDir/openapi.yaml"
 mkdir -p $openApiYamlDir
 echo "Converting OpenAPI JSON spec file $openApiJsonFilepath to YAML"
@@ -53,7 +53,7 @@ yq eval -P $openApiJsonFilepath -o yaml > $openApiYamlFilepath
 echo "Successfully generated OpenAPI YAML spec file at $openApiYamlFilepath"
 
 # Generate API documentation from the OpenAPI YAML spec
-fullyQualifiedApiFilepath="$ORIGINAL_DIR/$API_DOCS_DIR/$apiDocFilepath"
+fullyQualifiedApiFilepath="$WORKSPACE_DIR/$API_DOCS_DIR/$apiDocFilepath"
 apiFileDir=$(dirname $fullyQualifiedApiFilepath)
 mkdir -p $apiFileDir
 echo "Generating ReDoc API docs at $fullyQualifiedApiFilepath"
