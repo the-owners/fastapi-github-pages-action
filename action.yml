@@ -52,7 +52,7 @@ runs:
         # Parent directory to use for generated API docs
         API_DOCS_DIR: ${{ inputs.api-docs-dir }}
         # Pass in calling repository name, eg. actions/checkout
-        GH_ACTION_REPOSITORY: ${{ github.action_repository }}
+        GH_ACTION_REPOSITORY: ${{ github.action_repository || github.repository }}
         # Required to pass permissions to fetch OpenAPI spec files from Git branches
         GH_TOKEN: ${{ github.token }}
         # Used to return to caller's repository directory
