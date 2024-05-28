@@ -81,7 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate API docs and deploy to GitHub Pages
-        uses: msayson/openapi-github-pages-action@v1.0.0
+        uses: msayson/openapi-github-pages-action@v2.0.0
         with:
           api-configs: |-
             [
@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate API docs and deploy to GitHub Pages
-        uses: msayson/openapi-github-pages-action@v1.0.0
+        uses: msayson/openapi-github-pages-action@v2.0.0
         with:
           api-configs: |-
             [
@@ -145,3 +145,5 @@ jobs:
 [ReDoc](https://github.com/Redocly/redoc) is used to automatically generate API documentation from the OpenAPI YAML specification.
 
 [GitHub Actions](https://docs.github.com/en/actions) are used to automatically generate and deploy HTML API documentation to [GitHub Pages](https://pages.github.com/).
+
+[GitHub CLI](https://github.com/cli/cli) is used to retrieve OpenAPI spec files from other Git branches.
