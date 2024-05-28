@@ -1,16 +1,16 @@
 name: OpenAPI GitHub Pages Documentation
-description: Convert OpenAPI specification to API documentation and publish to GitHub Pages
+description: Convert OpenAPI specifications to API documentation and publish to GitHub Pages
 branding:
   icon: 'upload-cloud'
   color: 'white'
 
 # GitHub Action inputs
 inputs:
-  openapi-json-filepath:
-    description: Filepath of OpenAPI JSON spec
+  api-configs:
+    description: JSON string configuring each OpenAPI spec to document
     required: true
-  api-docs-filepath:
-    description: Filepath to use for generated API docs HTML
+  api-docs-dir:
+    description: Parent directory to use for API docs
     required: true
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -41,22 +41,18 @@ runs:
           scripts/generate-docs.sh
         sparse-checkout-cone-mode: false
         path: openapi-github-pages-scripts
-    - name: Generate ReDoc API documentation
+    - name: Generate ReDoc API docs
       run: openapi-github-pages-scripts/scripts/generate-docs.sh
       shell: bash
       env:
-        OPENAPI_JSON_FILEPATH: ${{ inputs.openapi-json-filepath }}
-        API_DOCS_HTML_FILEPATH: ${{ inputs.api-docs-filepath }}
+        API_CONFIGS: ${{ inputs.api-configs }}
+        API_DOCS_DIR: ${{ inputs.api-docs-dir }}
     - name: Set up GitHub Pages
       uses: actions/configure-pages@v5
-    - name: Infer API docs directory
-      id: get-api-docs-dir
-      run: echo "api-docs-dir=$(dirname "${API_DOCS_HTML_FILEPATH}")" >> $GITHUB_OUTPUT
-      shell: bash
     - name: Upload API docs to GitHub Pages
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ${{ steps.get-api-docs-dir.outputs.api-docs-dir }}
+        path: ${{ inputs.api-docs-dir }}
     - name: Deploy GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4

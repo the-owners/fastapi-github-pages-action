@@ -26,5 +26,20 @@ jobs:
       - name: Test generating API docs and deploying to GitHub Pages
         uses: ./
         with:
-          openapi-json-filepath: test/resources/openapi.json
-          api-docs-filepath: test/docs.html
+          api-configs: |-
+            [{
+              "branch": "main",
+              "openapi-json-filepath": "test/resources/openapi.json",
+              "api-doc-filepath": "test/docs.html"
+            },
+            {
+              "branch": "v1",
+              "openapi-json-filepath": "test/resources/openapi.json",
+              "api-doc-filepath": "v1/docs.html"
+            },
+            {
+              "branch": "v2",
+              "openapi-json-filepath": "test-resources/openapi.json",
+              "api-doc-filepath": "v2/docs.html"
+            }]
+          api-docs-dir: docs

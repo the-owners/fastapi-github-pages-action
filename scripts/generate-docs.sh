@@ -1,21 +1,28 @@
 #!/usr/bin/env bash
 #
 # This script generates ReDoc API documentation
-# based on this package's OpenAPI spec.
+# based on this package's OpenAPI specs.
 #
 # Pre-requisites:
-# 1. yq has been installed, ref: https://github.com/mikefarah/yq
+# 1. jq has been installed, ref: https://jqlang.github.io/jq/download/
+# 2. yq has been installed, ref: https://github.com/mikefarah/yq
 #    - eg. On Linux using snap: `snap install yq`
 #    - eg. On Windows using winget: `winget install --id MikeFarah.yq`
-# 2. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
+# 3. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
 #    - eg. `npm install -g @redocly/cli`
-# 3. OpenAPI JSON spec has been pre-generated in the provided directory
-# 4. Caller has set the following environment variables:
-#    1. OPENAPI_JSON_FILEPATH - filepath of existing OpenAPI JSON spec
-#    2. API_DOCS_HTML_FILEPATH - filepath to use for generated API docs
+# 4. OpenAPI JSON spec has been pre-generated in the provided directory
+# 5. Caller has set the following environment variables:
+#    1. API_CONFIGS - JSON string configuring API generation for each OpenAPI spec
+#    2. API_DOCS_DIR - parent directory to use for generated API docs
 set -e
 
 # Validate prerequisites installed
+if ! command -v jq &> /dev/null
+then
+    echo "Failed to parse JSON since jq was not installed"
+    exit 1
+fi
+
 if ! command -v yq &> /dev/null
 then
     echo "Failed to convert OpenAPI spec from JSON to YAML since yq was not installed"
@@ -29,32 +36,33 @@ then
 fi
 
 # Validate env vars set
-if [[ ! -v OPENAPI_JSON_FILEPATH ]]
+if [[ ! -v API_CONFIGS ]]
 then
-    echo "The environment variable 'OPENAPI_JSON_FILEPATH' was not set"
+    echo "The environment variable 'API_CONFIGS' was not set"
     exit 1
 fi
-if [[ ! -v API_DOCS_HTML_FILEPATH ]]
+if [[ ! -v API_DOCS_DIR ]]
 then
-    echo "The environment variable 'API_DOCS_HTML_FILEPATH' was not set"
+    echo "The environment variable 'API_DOCS_DIR' was not set"
     exit 1
 fi
 
-# Validate OpenAPI JSON spec exists
-if [ ! -f "$OPENAPI_JSON_FILEPATH" ]; then
-    echo "Failed to generate API documentation since API spec was not found at $OPENAPI_JSON_FILEPATH"
-    exit 1
-fi
+# Save original directory so can later cd back when relative filepaths matter
+export ORIGINAL_DIR=$(pwd)
 
-# Generate OpenAPI YAML spec from the existing JSON
-OPENAPI_YAML_DIRECTORY=build/tmp/openapi-yaml
-OPENAPI_YAML_FILEPATH="$OPENAPI_YAML_DIRECTORY/openapi.yaml"
-mkdir -p $OPENAPI_YAML_DIRECTORY
-yq eval \
-    -P $OPENAPI_JSON_FILEPATH \
-    -o yaml > $OPENAPI_YAML_FILEPATH
+# Fetch all Git branch references to enable checking out files from any branch
+git fetch --all
 
-# Generate API documentation from the OpenAPI YAML spec
-API_HTML_DOCS_DIRECTORY="$(dirname "${API_DOCS_HTML_FILEPATH}")"
-mkdir -p $API_HTML_DOCS_DIRECTORY
-npx @redocly/cli build-docs $OPENAPI_YAML_FILEPATH -o $API_DOCS_HTML_FILEPATH
+# Create empty API docs directory if does not exist
+mkdir -p $API_DOCS_DIR
+
+# Infer script directory regardless of how script was invoked
+# Ref: https://stackoverflow.com/a/53122736
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+apiConfigsSplitToOnePerLine=$(echo $API_CONFIGS | jq -c .[])
+for apiConfig in $apiConfigsSplitToOnePerLine
+do
+    echo "Running script to generate API docs for config: $apiConfig"
+    source $script_dir/generate-single-spec-doc.sh $apiConfig
+done
