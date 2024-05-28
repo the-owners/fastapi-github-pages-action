@@ -46,8 +46,6 @@ then
     echo "The environment variable 'API_DOCS_DIR' was not set"
     exit 1
 fi
-
-# Save original directory so can later cd back when relative filepaths matter
 if [[ ! -v WORKSPACE_DIR ]]
 then
     echo "The environment variable 'WORKSPACE_DIR' was not set"
@@ -67,7 +65,6 @@ script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 apiConfigsSplitToOnePerLine=$(echo $API_CONFIGS | jq -c .[])
 for apiConfig in $apiConfigsSplitToOnePerLine
 do
-    cd $WORKSPACE_DIR
     echo "Running script to generate API docs for config: $apiConfig"
     source $script_dir/generate-single-spec-doc.sh $apiConfig
 done

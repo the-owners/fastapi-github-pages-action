@@ -28,9 +28,8 @@ if [ "${apiDocFilepath}" = "null" ]; then
     exit 1
 fi
 
-cd $WORKSPACE_DIR
-
 # Fetch OpenAPI JSON spec if provided branch config
+cd $WORKSPACE_DIR
 if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
     echo "No Git branch provided for API spec, falling back to local directory"
 else

@@ -24,6 +24,10 @@ runs:
   steps:
     - name: Checkout source package
       uses: actions/checkout@v4
+      with:
+        # Fetch Git history from across all branches/tags,
+        # to enable fetching OpenAPI specs from multiple branches
+        fetch-depth: 0
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
