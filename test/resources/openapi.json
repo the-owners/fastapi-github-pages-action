@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
       "title": "Consent Management API",
-      "version": "2024-05-24"
+      "version": "2024-04-01"
   },
   "paths": {
       "/v1/consent-management/services/{serviceId}/users/{userId}/consents": {
@@ -152,56 +152,6 @@
                       }
                   }
               }
-          },
-          "post": {
-              "description": "Update a user Consent for a given service.",
-              "operationId": "UpdateServiceUserConsent",
-              "requestBody": {
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/UpdateServiceUserConsentRequestContent"
-                          }
-                      }
-                  }
-              },
-              "parameters": [
-                  {
-                      "name": "consentId",
-                      "in": "path",
-                      "description": "Unique identifier for a Consent.",
-                      "schema": {
-                          "type": "string",
-                          "description": "Unique identifier for a Consent."
-                      },
-                      "required": true
-                  },
-                  {
-                      "name": "serviceId",
-                      "in": "path",
-                      "description": "Unique identifier for a service.",
-                      "schema": {
-                          "type": "string",
-                          "description": "Unique identifier for a service."
-                      },
-                      "required": true
-                  },
-                  {
-                      "name": "userId",
-                      "in": "path",
-                      "description": "Unique identifier for a user.",
-                      "schema": {
-                          "type": "string",
-                          "description": "Unique identifier for a user."
-                      },
-                      "required": true
-                  }
-              ],
-              "responses": {
-                  "200": {
-                      "description": "UpdateServiceUserConsent 200 response"
-                  }
-              }
           }
       }
   },
@@ -305,22 +255,6 @@
                   "nextPageToken": {
                       "type": "string",
                       "description": "Pagination token to retrieve the next page of results."
-                  }
-              }
-          },
-          "UpdateServiceUserConsentRequestContent": {
-              "type": "object",
-              "properties": {
-                  "status": {
-                      "$ref": "#/components/schemas/ConsentStatus"
-                  },
-                  "consentData": {
-                      "$ref": "#/components/schemas/ConsentData"
-                  },
-                  "expiryTime": {
-                      "type": "string",
-                      "description": "Time when the Consent automatically expires, using the ISO 8601 format.",
-                      "format": "date-time"
                   }
               }
           }
