@@ -52,9 +52,6 @@ then
     exit 1
 fi
 
-# Fetch all Git branch references to enable checking out files from any branch
-git fetch --all
-
 # Create empty API docs directory if does not exist
 mkdir -p $API_DOCS_DIR
 

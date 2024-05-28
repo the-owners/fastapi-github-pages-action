@@ -25,6 +25,7 @@ Add the following permissions to your GitHub workflow, prior to the lines defini
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
+  packages: read
   pages: write
   id-token: write
 ```
@@ -72,6 +73,7 @@ on:
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
+  packages: read
   pages: write
   id-token: write
 
@@ -107,6 +109,7 @@ on:
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
+  packages: read
   pages: write
   id-token: write
 

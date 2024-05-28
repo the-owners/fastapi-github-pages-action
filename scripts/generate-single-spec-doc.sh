@@ -34,6 +34,7 @@ if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
     echo "No Git branch provided for API spec, falling back to local directory"
 else
     echo "Fetching API spec file $openApiJsonFilepath from branch $branchToFetchApiSpecFrom"
+    git fetch --all
     git checkout $branchToFetchApiSpecFrom -- $openApiJsonFilepath
 fi
 
