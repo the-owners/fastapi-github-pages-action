@@ -123,7 +123,7 @@ jobs:
               {
                 "branch": "main",
                 "openapi-json-filepath": "openapi/ConsentManagementApi.openapi.json",
-                "api-doc-filepath": "main/docs.html"
+                "api-doc-filepath": "latest/docs.html"
               },
               {
                 "branch": "v1",

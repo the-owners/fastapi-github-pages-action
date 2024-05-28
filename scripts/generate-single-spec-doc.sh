@@ -42,7 +42,7 @@ else
     gh api \
       -H "Accept: application/vnd.github.raw+json" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
-      $apiSpecFetchUri
+      $apiSpecFetchUri > $openApiJsonFilepath
 fi
 
 # Validate OpenAPI JSON spec exists
@@ -52,7 +52,8 @@ if [ ! -f "$openApiJsonFilepath" ]; then
 fi
 
 # Generate OpenAPI YAML spec from the existing JSON
-openApiYamlDir="$WORKSPACE_DIR/build/tmp/openapi-yaml"
+uniqueId=($(md5sum $openApiJsonFilepath))
+openApiYamlDir="$WORKSPACE_DIR/build/tmp/$branchToFetchApiSpecFrom-$uniqueId/openapi-yaml"
 openApiYamlFilepath="$openApiYamlDir/openapi.yaml"
 mkdir -p $openApiYamlDir
 echo "Converting OpenAPI JSON spec file $openApiJsonFilepath to YAML"
