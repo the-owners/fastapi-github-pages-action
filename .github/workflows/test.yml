@@ -27,4 +27,4 @@ jobs:
         uses: ./
         with:
           openapi-json-filepath: test/resources/openapi.json
-          api-docs-filepath: main/test-api-docs.html
+          api-docs-filepath: test/docs.html
