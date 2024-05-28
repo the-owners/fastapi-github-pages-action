@@ -34,8 +34,15 @@ if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
     echo "No Git branch provided for API spec, falling back to local directory"
 else
     echo "Fetching API spec file $openApiJsonFilepath from branch $branchToFetchApiSpecFrom"
-    git fetch --all
-    git checkout $branchToFetchApiSpecFrom -- $openApiJsonFilepath
+
+    apiSpecFetchUri="/repos/$GH_ACTION_REPOSITORY/contents/$openApiJsonFilepath?ref=$branchToFetchApiSpecFrom"
+    echo "Submitting gh api request to endpoint $apiSpecFetchUri"
+
+    # Ref: https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-repository-content
+    gh api \
+      -H "Accept: application/vnd.github.raw+json" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      $apiSpecFetchUri
 fi
 
 # Validate OpenAPI JSON spec exists

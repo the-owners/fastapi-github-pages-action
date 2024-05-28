@@ -5,13 +5,14 @@
 #
 # Pre-requisites:
 # 1. jq has been installed, ref: https://jqlang.github.io/jq/download/
-# 2. yq has been installed, ref: https://github.com/mikefarah/yq
+# 2. gh has been installed, ref: https://github.com/cli/cli#installation
+# 3. yq has been installed, ref: https://github.com/mikefarah/yq
 #    - eg. On Linux using snap: `snap install yq`
 #    - eg. On Windows using winget: `winget install --id MikeFarah.yq`
-# 3. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
+# 4. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
 #    - eg. `npm install -g @redocly/cli`
-# 4. OpenAPI JSON spec has been pre-generated in the provided directory
-# 5. Caller has set the following environment variables:
+# 5. OpenAPI JSON spec has been pre-generated in the provided directory
+# 6. Caller has set the following environment variables:
 #    1. API_CONFIGS - JSON string configuring API generation for each OpenAPI spec
 #    2. API_DOCS_DIR - parent directory to use for generated API docs
 set -e

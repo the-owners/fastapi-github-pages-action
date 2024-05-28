@@ -51,7 +51,9 @@ runs:
         API_CONFIGS: ${{ inputs.api-configs }}
         # Parent directory to use for generated API docs
         API_DOCS_DIR: ${{ inputs.api-docs-dir }}
-        # Used to git checkout OpenAPI spec files
+        # Pass in calling repository name, eg. actions/checkout
+        GH_ACTION_REPOSITORY: ${{ github.action_repository }}
+        # Required to pass permissions to fetch OpenAPI spec files from Git branches
         GH_TOKEN: ${{ github.token }}
         # Used to return to caller's repository directory
         WORKSPACE_DIR: ${{ github.workspace }}
