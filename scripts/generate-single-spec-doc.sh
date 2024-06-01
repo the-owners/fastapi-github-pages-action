@@ -6,9 +6,9 @@
 # Pre-requisites:
 # 1. jq has been installed, ref: https://jqlang.github.io/jq/download/
 # 2. yq has been installed, ref: https://github.com/mikefarah/yq
-#    - eg. On Linux using snap: `snap install yq`
-#    - eg. On Windows using winget: `winget install --id MikeFarah.yq`
-# 3. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
+# 3. (If specify Git branch to retrieve OpenAPI specs from) gh has been installed, ref: https://github.com/cli/cli#installation
+#    - Once installed, set up your credentials via `gh auth login`
+# 4. redoc-cli has been installed, ref: https://github.com/Redocly/redoc
 #    - eg. `npm install -g @redocly/cli`
 set -e
 
@@ -33,6 +33,12 @@ cd $WORKSPACE_DIR
 if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
     echo "No Git branch provided for API spec, falling back to local directory"
 else
+    if ! command -v gh &> /dev/null
+    then
+        echo "Failed to fetch API spec files since gh was not installed"
+        exit 1
+    fi
+
     echo "Fetching API spec file $openApiJsonFilepath from branch $branchToFetchApiSpecFrom"
 
     apiSpecFetchUri="/repos/$GH_ACTION_REPOSITORY/contents/$openApiJsonFilepath?ref=$branchToFetchApiSpecFrom"
