@@ -140,6 +140,8 @@ jobs:
 ```
 
 ## Technologies
+[jq](https://jqlang.github.io/jq/) is a lightweight and flexible command-line JSON processor.
+
 [yq](https://github.com/mikefarah/yq) is used to convert JSON to YAML, since YAML is the required format for ReDoc, while many tools such as Smithy generate OpenAPI specs with the JSON format.
 
 [ReDoc](https://github.com/Redocly/redoc) is used to automatically generate API documentation from the OpenAPI YAML specification.
