@@ -15,6 +15,7 @@ set -e
 apiConfig=$(echo $1 | jq)
 
 branchToFetchApiSpecFrom=$(echo $apiConfig | jq -r .branch)
+commandToGenerateApiSpec=$(echo $apiConfig | jq -r .\"generate-api-spec-command\")
 openApiJsonFilepath=$(echo $apiConfig | jq -r .\"openapi-json-filepath\")
 apiDocFilepath=$(echo $apiConfig | jq -r .\"api-doc-filepath\")
 
@@ -32,9 +33,13 @@ fi
 cd $WORKSPACE_DIR
 if [ "${branchToFetchApiSpecFrom}" = "null" ]; then
     echo "No Git branch provided for API spec, falling back to local directory"
+
+    if [ "${commandToGenerateApiSpec}" != "null" ]; then
+        echo "Running $commandToGenerateApiSpec to generate OpenAPI JSON spec"
+        eval $commandToGenerateApiSpec
+    fi
 else
-    if ! command -v gh &> /dev/null
-    then
+    if ! command -v gh &> /dev/null; then
         echo "Failed to fetch API spec files since gh was not installed"
         exit 1
     fi
@@ -46,9 +51,9 @@ else
 
     # Ref: https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-repository-content
     gh api \
-      -H "Accept: application/vnd.github.raw+json" \
-      -H "X-GitHub-Api-Version: 2022-11-28" \
-      $apiSpecFetchUri > $openApiJsonFilepath
+        -H "Accept: application/vnd.github.raw+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        $apiSpecFetchUri > $openApiJsonFilepath
 fi
 
 # Validate OpenAPI JSON spec exists

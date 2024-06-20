@@ -33,11 +33,12 @@ Add the following steps to your GitHub workflow, replacing the input values:
 
 ```yaml
 - name: Generate API docs and deploy to GitHub Pages
-  uses: msayson/smithy-gh-pages-action@v2.0.0
+  uses: msayson/openapi-github-pages-action@v2.0.0
   with:
     # JSON string configs for each OpenAPI spec to document
     # - branch: (Optional) Git branch to fetch spec file from, eg. origin/main
     #           If not provided, assumes file is available from current branch
+    # - generate-api-spec-command: (Optional) Command to run to generate spec file
     # - openapi-json-filepath: Filepath of OpenAPI JSON spec
     # - api-doc-filepath: Filepath for generated API doc, within the common directory defined by api-docs-dir
     api-configs: |-
