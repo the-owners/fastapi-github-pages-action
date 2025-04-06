@@ -29,9 +29,10 @@ runs:
         # to enable fetching OpenAPI specs from multiple branches
         fetch-depth: 0
     - name: Generate OpenAPI file
-      uses: column-st/fastapi-openapi-specs-action@v1.0.2
+      uses: the-owners/fastapi-openapi-specs-action@v1.0.3 # This fork is, absolutely no needed. We could just install uv in the installDependencies section I think.
       with:
         # These are hard-coded for the time being. Bad. Needs to be dynamic later.
+        installDependencies: uv sync --all-groups
         moduleDir: app
         fileName: main.py
         appName: app
