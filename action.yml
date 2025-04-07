@@ -28,8 +28,19 @@ runs:
         # Fetch Git history from across all branches/tags,
         # to enable fetching OpenAPI specs from multiple branches
         fetch-depth: 0
-    - name: Generate OpenAPI file
-      uses: the-owners/fastapi-openapi-specs-action@v1.0.3 # This fork is, absolutely no needed. We could just install uv in the installDependencies section I think.
+    - name: Generate OpenAPI JSON file
+    # Just so it doesn't crash for now as the scripts are wanky rn.
+      uses: the-owners/fastapi-openapi-specs-action@v1.0.3
+      with:
+        # These are hard-coded for the time being. Bad. Needs to be dynamic later.
+        installDependencies: uv sync --all-groups
+        moduleDir: app
+        fileName: main.py
+        appName: app
+        fastapiVersioning: None
+        outputExtension: json
+    - name: Generate OpenAPI YAML file
+      uses: the-owners/fastapi-openapi-specs-action@v1.0.3
       with:
         # These are hard-coded for the time being. Bad. Needs to be dynamic later.
         installDependencies: uv sync --all-groups
