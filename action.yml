@@ -61,7 +61,7 @@ runs:
     - name: Fetch generate-docs.sh script
       uses: actions/checkout@v4
       with:
-        repository: msayson/openapi-github-pages-action # Also, change this to internal repo in the future?
+        repository: the-owners/openapi-github-pages-action
         sparse-checkout: scripts
         path: openapi-github-pages-scripts
     - name: Generate ReDoc API docs
