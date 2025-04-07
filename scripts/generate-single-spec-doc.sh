@@ -63,7 +63,7 @@ if [ ! -f "$openApiJsonFilepath" ]; then
     exit 1
 fi
 
-# Generate OpenAPI YAML spec from the existing JSON
+# Generate OpenAPI YAML spec from the existing JSON if there's no YAML already
 if [ ! -f "$openApiYamlFilepath" ]; then
     uniqueId=($(md5sum $openApiJsonFilepath))
     openApiYamlDir="$WORKSPACE_DIR/build/tmp/$branchToFetchApiSpecFrom-$uniqueId/openapi-yaml"
