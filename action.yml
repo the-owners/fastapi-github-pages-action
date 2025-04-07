@@ -38,6 +38,8 @@ runs:
         appName: app
         fastapiVersioning: None
         outputExtension: json
+    - run: ls
+    - run: chmod 777 openapi.json
     - uses: actions/setup-java@v4
       with:
         distribution: corretto
