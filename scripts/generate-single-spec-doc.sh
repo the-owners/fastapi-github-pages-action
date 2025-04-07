@@ -64,16 +64,16 @@ if [ ! -f "$openApiJsonFilepath" ]; then
 fi
 
 # Generate OpenAPI YAML spec from the existing JSON if there's no YAML already
-if [ ! -f "$openApiYamlFilepath" ]; then
-    uniqueId=($(md5sum $openApiJsonFilepath))
-    openApiYamlDir="$WORKSPACE_DIR/build/tmp/$branchToFetchApiSpecFrom-$uniqueId/openapi-yaml"
-    openApiYamlFilepath="$openApiYamlDir/openapi.yaml"
-    mkdir -p $openApiYamlDir
-    echo "Converting OpenAPI JSON spec file $openApiJsonFilepath to YAML"
-    yq eval -P $openApiJsonFilepath -o yaml > $openApiYamlFilepath
-    echo "Successfully generated OpenAPI YAML spec file at $openApiYamlFilepath"
-    exit 1
-fi
+# if [ ! -f "$openApiYamlFilepath" ]; then
+#     uniqueId=($(md5sum $openApiJsonFilepath))
+#     openApiYamlDir="$WORKSPACE_DIR/build/tmp/$branchToFetchApiSpecFrom-$uniqueId/openapi-yaml"
+#     openApiYamlFilepath="$openApiYamlDir/openapi.yaml"
+#     mkdir -p $openApiYamlDir
+#     echo "Converting OpenAPI JSON spec file $openApiJsonFilepath to YAML"
+#     yq eval -P $openApiJsonFilepath -o yaml > $openApiYamlFilepath
+#     echo "Successfully generated OpenAPI YAML spec file at $openApiYamlFilepath"
+#     exit 1
+# fi
 
 echo "Found OpenAPI YAML spec file at $openApiYamlFilepath"
 
