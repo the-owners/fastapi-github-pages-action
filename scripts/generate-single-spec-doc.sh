@@ -82,7 +82,7 @@ fullyQualifiedApiFilepath="$WORKSPACE_DIR/$API_DOCS_DIR/$apiDocFilepath"
 apiFileDir=$(dirname $fullyQualifiedApiFilepath)
 mkdir -p $apiFileDir
 echo "Generating ReDoc API docs at $fullyQualifiedApiFilepath"
-node build-docs.js $openApiYamlFilepath -o $fullyQualifiedApiFilepath
+node build-docs.js $openApiJsonFilepath -o $fullyQualifiedApiFilepath
 
 if [ ! -f "$fullyQualifiedApiFilepath" ]; then
     echo "Failed to generate API documentation, generated doc not found at $fullyQualifiedApiFilepath"
