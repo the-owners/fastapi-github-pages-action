@@ -12,6 +12,10 @@
 #    - eg. `npm install -g @redocly/cli`
 set -e
 
+# Infer script directory regardless of how script was invoked
+# Ref: https://stackoverflow.com/a/53122736
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 apiConfig=$(echo $1 | jq)
 
 branchToFetchApiSpecFrom=$(echo $apiConfig | jq -r .branch)
@@ -82,7 +86,7 @@ fullyQualifiedApiFilepath="$WORKSPACE_DIR/$API_DOCS_DIR/$apiDocFilepath"
 apiFileDir=$(dirname $fullyQualifiedApiFilepath)
 mkdir -p $apiFileDir
 echo "Generating ReDoc API docs at $fullyQualifiedApiFilepath"
-node build-docs.js $openApiJsonFilepath -o $fullyQualifiedApiFilepath
+node $script_dir/build-docs.js $openApiJsonFilepath -o $fullyQualifiedApiFilepath
 
 if [ ! -f "$fullyQualifiedApiFilepath" ]; then
     echo "Failed to generate API documentation, generated doc not found at $fullyQualifiedApiFilepath"
